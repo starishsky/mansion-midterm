@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play escape room midterm.</tw-noscript></noscript></tw-story>
-<tw-storydata name="escape room midterm" startnode="1" creator="Twine" creator-version="2.7.1" format="Harlowe" format-version="3.3.7" ifid="A2025E78-9DB6-4709-A1C9-5B4B5A784D9D" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">img {
+<tw-storydata name="escape room midterm" startnode="1" creator="Twine" creator-version="2.7.1" format="Harlowe" format-version="3.3.7" ifid="A2025E78-9DB6-4709-A1C9-5B4B5A784D9D" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">img {
   max-width: 90%;
   max-height: 90%;
   display: block;
@@ -32,37 +32,31 @@ tw-link {
 
 .black tw-link {
   color: transparent;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="header" color="red"></tw-tag><tw-tag name="footer" color="red"></tw-tag><tw-tag name="menu" color="orange"></tw-tag><tw-passagedata pid="1" name="Intro" tags="" position="600,250" size="100,100">When the player is in front of the mansion.
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="header" color="red"></tw-tag><tw-tag name="footer" color="red"></tw-tag><tw-tag name="menu" color="orange"></tw-tag><tw-tag name="main-room" color="purple"></tw-tag><tw-tag name="crank" color="orange"></tw-tag><tw-passagedata pid="1" name="Intro" tags="" position="700,500" size="100,100">When the player is in front of the mansion.
 
-[[Enter the mansion.]]</tw-passagedata><tw-passagedata pid="2" name="Enter the mansion." tags="" position="600,375" size="100,100">This is the initial mansion entrance dialogue.
-
-[[Look at the photo on the wall.]]
-[[Go to the $diningName. | Dining Room]]
-[[Go to the $billiardName. | Billiard Room (Locked)]]
-[[Go to the $kitchenName. | Kitchen]]
-[[Go to the $guestName. | Guest Room (Locked)]]
-(text-colour:transparent)[[[Look at the vase in the corner of the room. | Password 1]]]
-
-{(set: $headerValue to &quot;Mansion Entrance&quot;)
-(replace: ?headerName)[$headerValue]
-(set: $entranceExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="3" name="Look at the photo on the wall." tags="" position="600,500" size="100,100">The photo depicts three people. A small plaque is below the frame:
+[[Go inside. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="2" name="Look at the photo on the wall." tags="" position="700,750" size="100,100">The photo depicts three people. A small plaque is below the frame:
 
 &quot;[[Noah Frederick-&gt;Noah Inspect]], [[Karolyn Autumn-&gt;Karolyn Inspect]], and [[Archer Clementine-&gt;Archer Inspect]].&quot;
 
-[[Go back. | Mansion Entrance Alt]]</tw-passagedata><tw-passagedata pid="4" name=" Billiard Room (Locked)" tags="" position="100,400" size="100,100">[$billiardLock]&lt;billiardLock|
+[[Go back. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="3" name=" Billiard Room (Locked)" tags="main-room" position="1000,1175" size="100,100">[$billiardLock]&lt;billiardLock|
 {
 (event: when $billiardKey is &quot;false&quot;)[(replace: ?billiardLock)[The door is locked.&lt;p&gt;
 
-[[Go back. | Mansion Entrance Alt]]&lt;/p&gt;]]
+[[Go back. | Mansion Entrance]]&lt;/p&gt;]]
 
 (event: when $billiardKey is &quot;true&quot;)[(replace: ?billiardLock)[You unlock the Billiard Room with the key.
 
+(set: $invSpace to it - 1)
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Billiard Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Billiard Room Key&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Billiard Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Billiard Room Key&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Billiard Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+
 &lt;p&gt;[[Go in. | Billiard Room]]
-&lt;p&gt;[[Go back. | Mansion Entrance Alt]]]]
+&lt;p&gt;[[Go back. | Mansion Entrance]]]]
 }
 {(set: $headerValue to &quot;Billiard Room&quot;)
 (replace: ?headerName)[$headerValue]
-(set: $billiardExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="5" name=" Kitchen" tags="" position="575,750" size="100,100">The kitchen. For some reason, there are several life-sized dolls on hooks that take up most of the room. (if: $soup is not &quot;true&quot; and $dollSolve is not &quot;true&quot;)[There is also a pot of... something on the stove.]
+(set: $billiardExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="4" name=" Kitchen" tags="main-room" position="400,625" size="100,100">The kitchen. For some reason, there are several life-sized dolls on hooks that take up most of the room. (if: $soup is not &quot;true&quot; and $dollSolve is not &quot;true&quot;)[There is also a pot of... something on the stove.]
 
 In addition to this, there is a large spice cabinet in the corner.
 
@@ -70,34 +64,39 @@ In addition to this, there is a large spice cabinet in the corner.
 [[[Look at the spice cabinet.-&gt;Look at the spice cabinet.]]]&lt;kitch2|
 [[[Taste whatever&#39;s in the pot.-&gt;Taste whatever&#39;s in the pot.]]]&lt;kitch3|
 
-[[Go to the Dining Room. | Dining Room]]
-[[Go to the Mansion Entrance. | Mansion Entrance Alt]]
+[[[Go to the Dining Room. | Dining Room]]]&lt;dr|
+[[Go to the Mansion Entrance. | Mansion Entrance]]
 
 {(event: when $dollSolve is &quot;true&quot;)+(replace: ?kitch1)[[[Inspect the dolls again.]]]
 (event: when $spiceSolve is &quot;true&quot;)+(replace: ?kitch2)[[[Look at the spice cabinet.-&gt;Poison Cabinet]]]
 (event: when $spiceSolve is &quot;true&quot; and $poisonBottle is &quot;true&quot;)+(replace: ?kitch3)[[[Poison the pot.-&gt;Bad Soup]]]
 (event: when $soup is &quot;true&quot; or $dollSolve is &quot;true&quot;)+(replace: ?kitch3)[]
-
+(event: when $dollSolve is &quot;true&quot;)+(replace: ?dr)[[[Go to the Dining Room. | Dining Room Solved]]]
 
 (set: $headerValue to &quot;Kitchen&quot;)
 (replace: ?headerName)[$headerValue]
-(set: $kitchenExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="6" name=" Guest Room (Locked)" tags="" position="1125,1050" size="100,100">[$guestLock]&lt;guestLock|
+(set: $kitchenExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="5" name=" Guest Room (Locked)" tags="main-room" position="1000,625" size="100,100">[$guestLock]&lt;guestLock|
 {
 (event: when $guestKey is &quot;false&quot;)[(replace: ?guestLock)[The door is locked.&lt;p&gt;
 
-[[Go back. | Mansion Entrance Alt]]&lt;/p&gt;]]
+[[Go back. | Mansion Entrance]]&lt;/p&gt;]]
 
-(event: when $guestKey is &quot;true&quot;)[(replace: ?guestLock)[You unlock the Guest Room with the key.
+(event: when $guestKey is &quot;true&quot;)[(replace: ?guestLock)[You unlock the Guest Room with the key.]
+
+(set: $invSpace to it - 1)
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Guest Room Key&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Guest Room Key&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)
 
 &lt;p&gt;[[Go in. | Guest Room]]
-[[Go back. | Mansion Entrance Alt]]&lt;/p&gt;]]
+&lt;p&gt;[[Go back. | Mansion Entrance]]]]
 }
 
 {
 (set: $headerValue to &quot;Guest Room&quot;)
 (replace: ?headerName)[$headerValue]
 (set: $guestExplored to &quot;true&quot;)
-}</tw-passagedata><tw-passagedata pid="7" name=" Dining Room" tags="" position="100,650" size="100,100">A dimly-lit dining room. Someone took great care into setting the table. There is a [note]&lt;dn| on the table.
+}</tw-passagedata><tw-passagedata pid="6" name=" Dining Room" tags="main-room" position="400,900" size="100,100">A dimly-lit dining room. Someone took great care into setting the table. There is a [note]&lt;dn| on the table.
 
 (click: ?dn)+(css: &quot;font-size: 90%&quot;)[&quot;The meal can only be served once(text-colour:orange)[ the guest] has been seated.&quot;(set: $diningNote to &quot;true&quot;)]
 
@@ -112,23 +111,16 @@ In addition to this, there is a large spice cabinet in the corner.
 &lt;p&gt;(if: $dollCarry is &quot;true&quot; and $dollSet is &quot;true&quot;)[[Replace the doll. |Doll Set]]}
 
 [[Go to the Kitchen. | Kitchen]]
-&lt;p&gt;[[Go to the Mansion Entrance. | Mansion Entrance Alt]]
+&lt;p&gt;[[Go to the Mansion Entrance. | Mansion Entrance]]
 
 {(set: $headerValue to &quot;Dining Room&quot;)
 (replace: ?headerName)[$headerValue]
 (set: $diningExplored to &quot;true&quot;)
-}</tw-passagedata><tw-passagedata pid="8" name="Startup" tags="startup" position="600,75" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="7" name="Startup" tags="startup" position="850,75" size="100,100">{
 &lt;!--header variable--&gt;
 
 (set: $headerValue to &quot;Outside the Mansion&quot;)
 (set: $tooltip to &quot;&quot;)
-
-{(set: $inventorySlot to
-(dm: &quot;Slot 1:&quot;, &quot;Empty&quot;,
-&quot;Slot 2:&quot;, &quot;Empty&quot;,
-&quot;Slot 3:&quot;, &quot;Empty&quot;))}
-
-(set: $inventoryMessage to &quot;Your inventory is full.&quot;)
 
 &lt;!-- room name variables--&gt;
 
@@ -146,6 +138,13 @@ In addition to this, there is a large spice cabinet in the corner.
 
 &lt;!-- inventory variables --&gt;
 
+{(set: $inventorySlot to
+(dm: &quot;Slot 1:&quot;, &quot;Empty&quot;,
+&quot;Slot 2:&quot;, &quot;Empty&quot;,
+&quot;Slot 3:&quot;, &quot;Empty&quot;))}
+
+(set: $inventoryMessage to &quot;Your inventory is full.&quot;)
+
 (set: $invSpace to 0)
 
 (set: $recKey to &quot;false&quot;)
@@ -159,50 +158,48 @@ In addition to this, there is a large spice cabinet in the corner.
 (set: $spiceCorrect to 0)
 (set: $spice4 to &quot;false&quot;)
 
+(set: $balls to 0)
+
 &lt;!--puzzle solve variables--&gt;
 (set: $dollSolve to &quot;false&quot;)
 (set: $spiceSolve to &quot;false&quot;)
 
 &lt;!--basement password variables--&gt;
 (set: $password1 to &quot;false&quot;)
+(set: $password2 to &quot;false&quot;)
 
 &lt;!--menu return code--&gt;
 
 (set: $lastPassage to &quot;&quot;)
 
-}</tw-passagedata><tw-passagedata pid="9" name="Header" tags="header" position="800,75" size="100,100">[$headerValue]&lt;headerName|&lt;hr&gt;</tw-passagedata><tw-passagedata pid="10" name=" Password 1" tags="" position="875,375" size="100,100">You see a piece of paper that has &quot;0002&quot; written on it stuffed in the leaves of the fake potted plant. You think it&#39;s probably important. You&#39;ll surely remember this.
+}</tw-passagedata><tw-passagedata pid="8" name="Header" tags="header" position="850,200" size="100,100">[$headerValue]&lt;headerName|&lt;hr&gt;</tw-passagedata><tw-passagedata pid="9" name=" Password 1" tags="" position="875,600" size="100,100">You see a piece of paper that has &quot;0002&quot; written on it stuffed in the leaves of the fake potted plant. You think it&#39;s probably important. You&#39;ll surely remember this.
 
-[[Go back. | Mansion Entrance Alt]]
+[[Go back. | Mansion Entrance]]
 
-{(set: $password1 to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="11" name=" Mansion Entrance Alt" tags="" position="475,375" size="100,100">This is after the player has been in the entrance once.
-
-[[Look at the photo on the wall.]]
-[[Go to the $diningName. | Dining Room]]
-[[Go to the $billiardName. | Billiard Room (Locked)]]
-[[Go to the $kitchenName. | Kitchen]]
-[[Go to the $guestName. | Guest Room (Locked)]]
-(text-colour:transparent)[[[Look at the vase in the corner of the room | Password 1]]]
-
-{(set: $headerValue to &quot;Mansion Entrance&quot;)
-(replace: ?headerName)[$headerValue]}</tw-passagedata><tw-passagedata pid="12" name="Footer" tags="footer" position="925,75" size="100,100">[$tooltip]&lt;tooltip|
+{(set: $password1 to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="10" name="Footer" tags="footer" position="975,75" size="100,100">[$tooltip]&lt;tooltip|
 &lt;hr&gt;[[Inventory]]
 
-{(if: not ((passage:)&#39;s tags contains &quot;menu&quot;))[(set: $lastPassage to (passage:)&#39;s name)]}</tw-passagedata><tw-passagedata pid="13" name="Inventory" tags="menu" position="1075,75" size="100,100">Your inventory, but really it&#39;s whatever can fit in your hands and pockets. As much as you want it to be a bottomless black hole, you can really only hold about (text-colour:orange)[3 things].
+{(if: not ((passage:)&#39;s tags contains &quot;menu&quot;))[(set: $lastPassage to (passage:)&#39;s name)]}</tw-passagedata><tw-passagedata pid="11" name="Inventory" tags="menu" position="1100,75" size="100,100">Your inventory, but really it&#39;s whatever can fit in your hands and pockets. As much as you want it to be a bottomless black hole, you can really only hold about (text-colour:orange)[3 things].
 
 $inventorySlot
 
 [[Notes]]
 
-(link-goto: &quot;Exit Inventory&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="14" name="Notes" tags="menu" position="1175,200" size="100,100">Good thing you brought a tiny journal. For some reason.
+(link-goto: &quot;Exit Inventory&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="12" name="Notes" tags="menu" position="1225,75" size="100,100">Your notes on the things you see around the mansion. Good thing you brought a tiny journal. For some reason.
 
 (if: $password1 is &quot;true&quot;)[[Note from a potted plant]]
 (if: $spiceNote is &quot;true&quot;)[[Note from the spice cabinet]]
-(if: $diningNote is &quot;true&quot;)[[Note from the dining room]]
+(if: $diningNote is &quot;true&quot;)[[Note from the Dining Room]]
+(if: $poolNote is &quot;true&quot;)[[Note from the Billiard Room]]
+(if: $password2 is &quot;true&quot;)[[Note from a cue ball]]
+(if: $tableNote is &quot;true&quot;)[[Note about the pool balls]]
 
-(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="15" name="Note from a potted plant" tags="menu" position="1175,325" size="100,100">A piece of paper that has &quot;0002&quot; written on it.
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="13" name="Note from a potted plant" tags="menu" position="1225,200" size="100,100">A piece of paper that has &quot;0002&quot; written on it.
 
 [[Return to Notes. |Notes]]
-(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="16" name="Inspect the dolls." tags="" position="600,925" size="100,100">Five life-sized wooden dolls adorn the walls of the kitchen, each adorned with a metal mouth covering. They stare at you with cold glass eyes.
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="14" name="Inspect the dolls." tags="" position="300,400" size="100,100">Five life-sized wooden dolls adorn the walls of the kitchen, each adorned with a metal mouth covering. They stare at you with cold glass eyes. There is a [note]&lt;note| on one of them.
+
+(click: ?note)[&quot;The key will be revealed once the (text-colour:orange)[proper guest] has enjoyed their (text-colour:orange)[last meal].&quot;]
 
 Each doll has letters haphazardly carved into its chest.
 
@@ -210,13 +207,14 @@ Each doll has letters haphazardly carved into its chest.
 (if: $doll is not &quot;AC&quot; or $ACfail is not &quot;true&quot;)[(link: &quot;Take the doll with AC on the chest.&quot;)[(set: $doll to &quot;AC&quot;)(goto: &quot;Doll Pickup&quot;)]]
 (if: $doll is not &quot;KA&quot;)[(link: &quot;Take the doll with KA on the chest.&quot;)[(set: $doll to &quot;KA&quot;)(goto: &quot;Doll Pickup&quot;)]]
 (if: $doll is not &quot;NF&quot; or $NFfail is not &quot;true&quot;)[(link: &quot;Take the doll with NF on the chest.&quot;)[(set: $doll to &quot;NF&quot;)(goto: &quot;Doll Pickup&quot;)]]
-(link-goto: &quot;Go back.&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="17" name="Look at the spice cabinet." tags="" position="425,925" size="100,100">You open the glass doors of the spice cabinet. (if: $spiceNote is &quot;false&quot;)[There&#39;s a [note]&lt;sn| hidden between some of the bottles in the very corner, almost hidden from view.]
 
-{(click: ?sn)+(css: &quot;font-size: 90%&quot;)[&lt;hr&gt;&quot;I can finally kill my (text-colour:orange)[worst enemy] for good. I&#39;ve perfected the poison I&#39;ve been planning to use... It&#39;s so potent that it can (text-colour:orange)[corrode metal]!
+[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="15" name="Look at the spice cabinet." tags="" position="175,275" size="100,100">You open the glass doors of the spice cabinet. (if: $spiceNote is &quot;false&quot;)[There&#39;s a [note]&lt;sn| hidden between some of the bottles in the very corner, almost hidden from view.]
 
-The lock is a special contraption that I&#39;ve made, so even if the password is simple, it&#39;s so unsuspecting that most wouldn&#39;t even think it&#39;s my own little treasure chest.
+{(click: ?sn)+(css: &quot;font-size: 90%&quot;)[&lt;hr&gt;&quot;I can finally kill Karolyn for good. I&#39;ve perfected the poison I&#39;ve been planning to use... It&#39;s so potent that it can (text-colour:orange)[corrode metal]! The table has been set. I just need to give her her last meal.
 
-&lt;p&gt;(text-colour:orange)[I&#39;m truly the most brilliant mind here.]&quot;&lt;hr&gt;(set: $spiceNote to &quot;true&quot;)]}
+&lt;p&gt;The lock is a special contraption that I&#39;ve made, so even if the password is something as simple as my name, it&#39;s so unsuspecting that most wouldn&#39;t even think it&#39;s my own little treasure chest.
+
+&lt;p&gt;(text-colour:orange)[I&#39;m truly the most brilliant mind here].&quot;&lt;hr&gt;(set: $spiceNote to &quot;true&quot;)]}
 
 There are four circular indents in the shelf of the cabinet. The jars in the cabinet are as follows:
 
@@ -230,19 +228,19 @@ There are four circular indents in the shelf of the cabinet. The jars in the cab
 * Allspice
 
 [[Mess around with the jars. |Spice DM]]
-[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="18" name="Taste whatever&#39;s in the pot." tags="" position="725,800" size="100,100">(if: $soupTaste is not &quot;true&quot;)[Well, whatever&#39;s in there, it tastes like shit. Plus it&#39;s cold.]
+[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="16" name="Taste whatever&#39;s in the pot." tags="" position="425,300" size="100,100">(if: $soupTaste is not &quot;true&quot;)[Well, whatever&#39;s in there, it tastes like shit. Plus it&#39;s cold.]
 (else:)[For some reason, you&#39;re compelled to taste the mysterious liquid in the pot. It still tastes like shit.]
 
-[[Gross... | Kitchen]]</tw-passagedata><tw-passagedata pid="19" name="Noah Inspect" tags="" position="600,625" size="100,100">Noah Frederick. A simple-looking man in a simple-looking suit. His expression looks rather angry, his line of sight directed to (text-colour:orange)[his left].
+[[Gross... | Kitchen]]</tw-passagedata><tw-passagedata pid="17" name="Noah Inspect" tags="" position="700,875" size="100,100">Noah Frederick. A simple-looking man in a simple-looking suit. He seems to be glaring at the person to (text-colour:orange)[his left].
 
 [[Back to the photo. |Look at the photo on the wall.]]
-[[Exit. | Mansion Entrance Alt]]</tw-passagedata><tw-passagedata pid="20" name="Archer Inspect" tags="" position="800,625" size="100,100">A goofy-looking young man who has a sly grin on his face. One arm is wrapped around Karolyn, the other on his hip. (text-colour:orange)[He exudes confidence].
+[[Exit. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="18" name="Archer Inspect" tags="" position="700,1125" size="100,100">A goofy-looking young man who has a sly grin on his face. One arm is wrapped around Karolyn, the other on his hip. (text-colour:orange)[He exudes confidence].
 
 [[Back to the photo. |Look at the photo on the wall.]]
-[[Exit. | Mansion Entrance Alt]]</tw-passagedata><tw-passagedata pid="21" name="Karolyn Inspect" tags="" position="700,625" size="100,100">A very stern-looking woman. You have a feeling that if you knew each other you wouldn&#39;t get along. Staring straight into the camera with (text-colour:orange)[barely a hint of a smile].
+[[Exit. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="19" name="Karolyn Inspect" tags="" position="700,1000" size="100,100">A very stern-looking woman. You have a feeling that if you knew each other you wouldn&#39;t get along. Staring straight into the camera with (text-colour:orange)[barely a hint of a smile].
 
 [[Back to the photo. |Look at the photo on the wall.]]
-[[Exit. | Mansion Entrance Alt]]</tw-passagedata><tw-passagedata pid="22" name="Var Checker" tags="header" position="800,200" size="100,100">{
+[[Exit. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="20" name="Var Checker" tags="header" position="975,200" size="100,100">{
 (if: $diningExplored is &quot;true&quot;)[(set: $diningName to &quot;Dining Room&quot;)]
 (if: $kitchenExplored is &quot;true&quot;)[(set: $kitchenName to &quot;Kitchen&quot;)]
 (if: $guestExplored is &quot;true&quot;)[(set: $guestName to &quot;Guest Room&quot;)]
@@ -250,20 +248,53 @@ There are four circular indents in the shelf of the cabinet. The jars in the cab
 
 (if: $guestKey is &quot;false&quot;)[(set: $guestLock to &quot;&quot;)]
 (if: $billiardKey is &quot;false&quot;)[(set: $billardLock to &quot;&quot;)]
-}</tw-passagedata><tw-passagedata pid="23" name=" Guest Room" tags="" position="1125,1175" size="100,100"></tw-passagedata><tw-passagedata pid="24" name=" Billiard Room" tags="" position="100,275" size="100,100">A lavishly decorated billiard room. Predictably, there&#39;s a [note]&lt;bn| on the billiard table.
 
-(click: ?bn)+(css: &quot;font-size: 90%&quot;)[&quot;It&#39;s not a true game until all the (text-colour:orange)[pieces] are in place.&quot;]
+}</tw-passagedata><tw-passagedata pid="21" name=" Guest Room" tags="main-room" position="1000,750" size="100,100">{(set: $guestUnlocked to &quot;true&quot;)}
 
-&lt;span class=&quot;black&quot;&gt;[[Look at the loose panel in the ceiling.]]&lt;/span&gt;
-[[Pick up the ball from the floor.]]
-[[Look underneath the cabinet.]]
-[[Look in the wine fridge.]]
-&lt;span class=&quot;black&quot;&gt;[[Look in the pockets of the billiard table.]]&lt;/span&gt;</tw-passagedata><tw-passagedata pid="25" name="Doll Pickup" tags="" position="600,1050" size="100,100">(if: $dollCarry is &quot;false&quot;)[You have to drape the doll over your shoulders and carry it on your back. (set: $dollCarry to &quot;true&quot;)]
+The Guest Room consists of a bed, a desk, and a dresser. It&#39;s nothing particularly interesting. You try to look outside the windows, but they&#39;re boarded up shut. You wonder if you&#39;ll ever get out of here.
+
+[[Look at the typewriter on the desk. | Typewriter]]
+[[Look at the bed.]]
+[[Look at the dresser.]]</tw-passagedata><tw-passagedata pid="22" name=" Billiard Room" tags="main-room" position="1125,1175" size="100,100">{(set: $billiardUnlocked to &quot;true&quot;)}
+
+A lavishly decorated billiard room, where the eyes of the [paintings]&lt;paint| bore into your soul.
+
+(click: ?paint)[The painting overlooking the billiards table depicts a stern-looking man wearing a suit. He has a (text-colour:orange)[silver] watch on his wrist.
+
+//&quot;A true billiards player is as particular with their cue as they are with their accessories.&quot;//]
+
+&lt;hr&gt;Aside from a white cue ball, there&#39;s a [note]&lt;bn| on the billiard table.
+
+(click: ?bn)[&quot;It&#39;s not a true game until all the (text-colour:orange)[pieces] are in place.&quot;(set: $poolNote to &quot;true&quot;)]
+
+There are also pool cues in a thick glass case attached to the wall.
+
+{[]&lt;cue|
+
+(event: when $balls is 5)+(replace: ?cue)[With all of the pool balls on the table, you hear something click. The glass case containing the cues swings open.
+
+&lt;p&gt;[[Inspect the case.]]
+&lt;p&gt;(if: $balls is 5)[[Inspect the billiard table.]]]
+
+&lt;p&gt;(if: $goldCue is &quot;true&quot; or $silverCue is &quot;true&quot; or $bronzeCue is &quot;true&quot;)[(if:(history: where its name contains &quot;Password 2&quot;)&#39;s length is 0)[[[Play billiards. | Password 2]]]]}
+
+{&lt;p&gt;&lt;span class=&quot;black&quot;&gt;(if:(history: where its name contains &quot;Look at the loose panel in the ceiling.&quot;)&#39;s length is 0)[[Look at the loose panel in the ceiling.]]&lt;/span&gt;
+&lt;p&gt;(if:(history: where its name contains &quot;Pick up the ball from the floor.&quot;)&#39;s length is 0)[[Pick up the ball from the floor.]]
+&lt;p&gt;(if:(history: where its name contains &quot;Look underneath the cabinet.&quot;)&#39;s length is 0)[[Look underneath the cabinet.]]
+&lt;p&gt;(if:(history: where its name contains &quot;Look in the wine fridge.&quot;)&#39;s length is 0)[[Look in the wine fridge.]]
+&lt;p&gt;&lt;span class=&quot;black&quot;&gt;(if:(history: where its name contains &quot;Look in the pockets of the billiard table.&quot;)&#39;s length is 0)[[Look in the pockets of the billiard table.]]&lt;/span&gt;}
+
+&lt;p&gt;[[Go to the Mansion Entrance. | Mansion Entrance]]
+
+{
+(set: $headerValue to &quot;Billiard Room&quot;)
+(replace: ?headerName)[$headerValue]
+}</tw-passagedata><tw-passagedata pid="23" name="Doll Pickup" tags="" position="300,275" size="100,100">(if: $dollCarry is &quot;false&quot;)[You have to drape the doll over your shoulders and carry it on your back. (set: $dollCarry to &quot;true&quot;)]
 (else:)[You replace the doll you&#39;re currently carrying with a new one.]
 
 (text-colour:orange)[It&#39;s heavy.]
 
-[[Continue | Kitchen]]</tw-passagedata><tw-passagedata pid="26" name="Doll Set" tags="" position="225,850" size="100,100">(if: $dollSet is &quot;false&quot;)[You seat the doll at the table. It stares at you with empty eyes.
+[[Continue | Kitchen]]</tw-passagedata><tw-passagedata pid="24" name="Doll Set" tags="" position="250,975" size="100,100">(if: $dollSet is &quot;false&quot;)[You seat the doll at the table. It stares at you with empty eyes.
 
 The letters &quot;[$doll]&quot; are clearly displayed on its chest.(set: $dollSet to &quot;true&quot;)]
 (else:)[You place the new doll in the seat and return the old doll to where you found it. The letters &quot;[$doll]&quot; are clearly displayed on this doll&#39;s chest.]
@@ -273,16 +304,16 @@ The letters &quot;[$doll]&quot; are clearly displayed on its chest.(set: $dollSe
 (if: $soupSet is &quot;true&quot; and $dollSet is &quot;true&quot;)[[Feed the doll.]]
 [[Continue. | Dining Room]]
 
-</tw-passagedata><tw-passagedata pid="27" name="Note from the spice cabinet" tags="menu" position="1300,325" size="100,100">A note you found from the spice cabinet. It reads:
+</tw-passagedata><tw-passagedata pid="25" name="Note from the spice cabinet" tags="menu" position="1350,200" size="100,100">A note you found from the spice cabinet. It reads:
 
-&quot;I can finally kill my (text-colour:orange)[worst enemy] for good. I&#39;ve perfected the poison I&#39;ve been planning to use... It&#39;s so potent that it can (text-colour:orange)[corrode metal]!
+&quot;I can finally kill Karolyn for good. I&#39;ve perfected the poison I&#39;ve been planning to use... It&#39;s so potent that it can (text-colour:orange)[corrode metal]! The table has been set. I just need to give her her last meal.
 
-The lock is a special contraption that I&#39;ve made, so even if the password is simple, it&#39;s so unsuspecting that most wouldn&#39;t even think it&#39;s my own little treasure chest.
+The lock is a special contraption that I&#39;ve made, so even if the password is something as simple as my name, it&#39;s so unsuspecting that most wouldn&#39;t even think it&#39;s my own little treasure chest.
 
 (text-colour:orange)[I&#39;m truly the most brilliant mind here].&quot;
 
 [[Return to Notes. |Notes]]
-(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="28" name=" Spice Arrange (SCRAPPED)" tags="" position="100,1500" size="100,100">There are four circular indents in the cabinet shelf. Coincidentally, they&#39;re about the same size as the spice jars. It&#39;s a wonder how nobody saw this before.
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="26" name=" Spice Arrange (SCRAPPED)" tags="" position="850,325" size="100,100">There are four circular indents in the cabinet shelf. Coincidentally, they&#39;re about the same size as the spice jars. It&#39;s a wonder how nobody saw this before.
 
 |spice1&gt;[Slot 1
 {(click: ?spice1)[
@@ -313,7 +344,7 @@ The lock is a special contraption that I&#39;ve made, so even if the password is
 &lt;p&gt;(link: &quot;Nutmeg&quot;)[(set: $nut to &quot;true&quot;)(set: $spice2 to &quot;true&quot;)(replace: ?spice2)[Nutmeg]]
 &lt;p&gt;(link: &quot;Saffron&quot;)[(set: $all to &quot;true&quot;)(set: $spice2 to &quot;true&quot;)(replace: ?spice2)[Allspice]]
 ]}
-]</tw-passagedata><tw-passagedata pid="29" name="Spice DM" tags="" position="425,1050" size="100,100">{(set: $spiceArrange to
+]</tw-passagedata><tw-passagedata pid="27" name="Spice DM" tags="" position="175,400" size="100,100">{(set: $spiceArrange to
 (dm: &quot;Horseradish&quot;, 0,
 &quot;Saffron&quot;, 0,
 &quot;Oregano&quot;, 0,
@@ -336,6 +367,7 @@ The lock is a special contraption that I&#39;ve made, so even if the password is
 (set: $spice2 to &quot;false&quot;)
 (set: $spice3 to &quot;false&quot;)
 (set: $spice4 to &quot;false&quot;)
+(set: $spiceCorrect to 0)
 }
     
 There are four circular indents in the cabinet shelf. Coincidentally, they&#39;re about the same size as the spice jars. It&#39;s a wonder how nobody saw this before.&lt;hr&gt;
@@ -401,51 +433,62 @@ There are four circular indents in the cabinet shelf. Coincidentally, they&#39;r
 
 |reset&gt;[[[Reset the spices. |Spice DM]]
 [[Go back. | Kitchen]]]
-(event: when $spiceCorrect is 4)+(replace: ?reset)[A [[hidden compartment-&gt;Poison Cabinet]] in the spice cabinet opens.]</tw-passagedata><tw-passagedata pid="30" name="Poison Cabinet" tags="" position="425,1175" size="100,100">{[There is a glass bottle of dark, viscous liquid in the cabinet.
+(event: when $spiceCorrect is 4)+(replace: ?reset)[A [[hidden compartment-&gt;Poison Cabinet]] in the spice cabinet opens.]</tw-passagedata><tw-passagedata pid="28" name="Poison Cabinet" tags="" position="175,525" size="100,100">{[There is a glass bottle of dark, viscous liquid in the cabinet.
 
 There is also a metal wheel.]&lt;dia|
 
-(event: when $poisonBottle is not &quot;true&quot; and $crank2 is &quot;true&quot;)+(replace: ?dia)[There is a metal wheel in the cabinet.]
-(event: when $poisonBottle is &quot;true&quot; and $crank2 is not&quot;true&quot;)+(replace: ?dia)[Therre is a metal wheel in the cabinet.]
+(event: when $poisonBottle is not &quot;true&quot; and $crank2 is &quot;true&quot;)+(replace: ?dia)[There is a glass bottle of dark, viscous liquid in the cabinet.]
+(event: when $poisonBottle is &quot;true&quot; and $crank2 is not &quot;true&quot;)+(replace: ?dia)[There is a metal wheel in the cabinet.]
 (event: when $poisonBottle is &quot;true&quot; and $crank2 is &quot;true&quot;)+(replace: ?dia)[The cabinet is empty, save some spices that don&#39;t serve any particular use anymore.]}
 
 {
-(if: $poisonBottle is not &quot;true&quot;)[(link: &quot;Take the bottle.&quot;)[(set: $poisonBottle to &quot;true&quot;)(set: $inventorySpace to it + 1)
+(if: $poisonBottle is not &quot;true&quot;)[(link: &quot;Take the bottle.&quot;)[(set: $poisonBottle to &quot;true&quot;)(set: $invSpace to it + 1)
 
 (if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Poison Bottle&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Poison Bottle&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 3:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Poison Bottle&quot;)]
 ]]
 
-&lt;p&gt;(if: $crank2 is not &quot;true&quot;)[(link: &quot;Take the wheel.&quot;)[(set: $crank2 to &quot;true&quot;)(set: $inventorySpace to it + 1)
+&lt;p&gt;(if: $crank2 is not &quot;true&quot; and $fullCrank is not &quot;true&quot;)[(link: &quot;Take the wheel.&quot;)[(set: $crank2 to &quot;true&quot;)(set: $invSpace to it + 1)
 
 (if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Metal Wheel&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Metal Wheel&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Metal Wheel&quot;)]
-]]
+]
 
-(set: $spiceSolve to &quot;true&quot;)}
+(set: $spiceSolve to &quot;true&quot;)
 
-&lt;p&gt;[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="31" name="Inspect the dolls again." tags="" position="775,950" size="100,100">You stare at the dolls, and the dolls stare back. You feel like you should apologize to the one that you poisoned, even if it was just a doll. Was it?
+]
+(event: when $crank1 is &quot;true&quot; and $crank2 is &quot;true&quot;)[(go-to: &quot;Crank Arrange&quot;)]
+}
 
-[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="32" name="Bad Soup" tags="" position="425,1325" size="100,100">Putting two and two together, you have a feeling that you should pour the poison bottle into here.
+&lt;p&gt;[[Go back. | Kitchen]]
+&lt;!--&lt;p&gt;[[ Crank 1]]--&gt;</tw-passagedata><tw-passagedata pid="29" name="Inspect the dolls again." tags="" position="300,150" size="100,100">You stare at the dolls, and the dolls stare back. You feel like you should apologize to the one that you poisoned, even if it was just a doll. Was it?
+
+[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="30" name="Bad Soup" tags="" position="175,675" size="100,100">Putting two and two together, you have a feeling that you should pour the poison bottle into here.
 
 Now it&#39;s a (text-colour:#862e9c)[poisonous mystery liquid].
 
 {(set: $poisonBottle to &quot;false&quot;)
 
-(if: $soup is not &quot;true&quot;)[(link: &quot;Take the pot.&quot;)[(set: $soup to &quot;true&quot;)(set: $inventorySpace to it + 1)
+(if: $soup is not &quot;true&quot;)[(link: &quot;Take the pot.&quot;)[(set: $soup to &quot;true&quot;)(set: $invSpace to it + 1)
 (if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Poison Bottle&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Poison Soup&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Poison Bottle&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Poison Bottle&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Poison Soup&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Poison Bottle&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Poison Bottle&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Poison Soup&quot;)]
 ]]}
 
-[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="33" name="Soup Set" tags="" position="25,850" size="100,100">You set the soup down at the table, getting a whiff of whatever the concoction is. It doesn&#39;t smell very good at all. Oddly enough, you feel weirdly drawn in to the dark liquid.
+[[Go back. | Kitchen]]</tw-passagedata><tw-passagedata pid="31" name="Soup Set" tags="" position="250,850" size="100,100">You set the soup down at the table, getting a whiff of whatever the concoction is. It doesn&#39;t smell very good at all. Oddly enough, you feel weirdly drawn in to the dark liquid.
 
-You resist the urge to drink. At least for now. (set: $soupSet to &quot;true&quot;)
+You resist the urge to drink. At least for now. (set: $soupSet to &quot;true&quot;)(set: $invSpace to it - 1)
 
 (if: $soupSet is &quot;true&quot; and $dollSet is &quot;true&quot;)[[Feed the doll.]]
-[[Continue. | Dining Room]]</tw-passagedata><tw-passagedata pid="34" name="Feed the doll." tags="" position="75,1075" size="100,100">You ladle the soup into the doll&#39;s mouth. It flows past wooden lips and starts corroding the metal contraption on the inside. (set: $dollFail to &quot;It&#39;s best you try a different doll.&quot;)
+[[Continue. | Dining Room]]
+
+{
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Poison Soup&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Poison Soup&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Poison Soup&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 3:&quot; is not &quot;Poison Soup&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Poison Soup&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+}</tw-passagedata><tw-passagedata pid="32" name="Feed the doll." tags="" position="100,925" size="100,100">You ladle the soup into the doll&#39;s mouth. It flows past wooden lips and starts corroding the metal contraption on the inside. (set: $dollFail to &quot;It&#39;s best you try a different doll.&quot;)
 
 {
 &lt;!--(set: $dollSet to &quot;true&quot;)
@@ -455,7 +498,7 @@ You resist the urge to drink. At least for now. (set: $soupSet to &quot;true&quo
 
 {(if: $doll is &quot;KA&quot;)[A small metal key drops out of the puppet&#39;s mouth.]
 
-&lt;p&gt;(if: $billiardKey is not &quot;true&quot; and $doll is &quot;KA&quot;)[(link: &quot;Take the key.&quot;)[(set: $billiardKey to &quot;true&quot;)(set: $inventorySpace to it + 1)(set: $dollSolve to &quot;true&quot;)
+&lt;p&gt;(if: $billiardKey is not &quot;true&quot; and $doll is &quot;KA&quot;)[(link: &quot;Take the key.&quot;)[(set: $billiardKey to &quot;true&quot;)(set: $invSpace to it + 1)(set: $dollSolve to &quot;true&quot;)
 
 (if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Billiard Room Key&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Billiard Room Key&quot;)]
@@ -469,12 +512,257 @@ You resist the urge to drink. At least for now. (set: $soupSet to &quot;true&quo
 (if: $doll is &quot;NF&quot;)[Funnily enough, the metal in this doll&#39;s mouth doesn&#39;t seem to wear away no matter how much soup you pour into it. $dollFail (set: $NFfail to &quot;true&quot;)]
 }
 
-&lt;p&gt;[[Go back. | Dining Room]]</tw-passagedata><tw-passagedata pid="35" name="Note from the dining room" tags="menu" position="1050,325" size="100,100">A note you got from the Dining Room. It reads:
+&lt;p&gt;[[Go back. | Dining Room]]</tw-passagedata><tw-passagedata pid="33" name="Pick up the ball from the floor." tags="" position="1125,1050" size="100,100">You nearly trip and fall over the pool ball on the floor, but thank God you noticed it beforehand. You pick it up and set it on the table. (set: $balls to it + 1)
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="34" name="Look underneath the cabinet." tags="" position="1000,1050" size="100,100">Your hand reaches around underneath the cabinet, and thankfully, you find a pool ball under there. Of course it would roll under. You set it on the table.(set: $balls to it + 1)
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="35" name="Look at the loose panel in the ceiling." tags="" position="1250,1300" size="100,100">You look up and notice a loose panel in the ceiling. You mess around it and a pool ball falls out, almost falling right on top of your head. It luckily misses. You pick it up and set ti on the table.(set: $balls to it + 1)
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="36" name="Look in the pockets of the billiard table." tags="" position="1125,1300" size="100,100">It occurs to you that the missing pool balls could also be //in// the table rather than on it, so you search around the pockets. Luckily, you find one. You set it on the table.(set: $balls to it + 1)
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="37" name="Look in the wine fridge." tags="" position="1000,1300" size="100,100">Ah, of course. Why wouldn&#39;t there be a pool ball in the wine fridge? You pick it up and set it on the table. (set: $balls to it + 1)
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="38" name="Inspect the case." tags="" position="1250,1050" size="100,100">{
+&lt;!--(set: $invSpace to 3)--&gt;
+}
+
+A case used for displaying pool cues. Each wooden cue has a ring around the middle. You step in to get a closer look.
+
+{
+&lt;!--gold cue--&gt;
+
+(if: $goldCue is not &quot;true&quot; and $goldFail is not &quot;true&quot;)[(if: $invSpace is not 3)[(link: &quot;Take the gold cue.&quot;)[(set: $goldCue to &quot;true&quot;)(set: $invSpace to it + 1)
+
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Golden Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Golden Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Golden Cue&quot;)]
+]]
+(else-if: $invSpace is 3)[(link: &quot;Take the gold cue.&quot;)[$inventoryMessage]
+]]}
+
+{
+&lt;!--silver cue--&gt;
+
+(if: $silverCue is not &quot;true&quot; and $silverFail is not &quot;true&quot;)[(if: $invSpace is not 3)[(link: &quot;Take the silver cue.&quot;)[(set: $silverCue to &quot;true&quot;)(set: $invSpace to it + 1)
+
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Silver Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Silver Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Silver Cue&quot;)]
+]]
+(else-if: $invSpace is 3)[(link: &quot;Take the silver cue.&quot;)[$inventoryMessage]
+]]}
+
+{
+&lt;!--bronze cue--&gt;
+
+(if: $bronzeCue is not &quot;true&quot; and $bronzeFail is not &quot;true&quot;)[(if: $invSpace is not 3)[(link: &quot;Take the bronze cue.&quot;)[(set: $bronzeCue to &quot;true&quot;)(set: $invSpace to it + 1)
+
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Bronze Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Bronze Cue&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Bronze Cue&quot;)]
+]]
+(else-if: $invSpace is 3)[(link: &quot;Take the bronze cue.&quot;)[$inventoryMessage]
+]]}
+
+[[Go back. | Billiard Room]]
+&lt;!--[[Poison Cue  | Poison Cue]]--&gt;</tw-passagedata><tw-passagedata pid="39" name="Note from the Dining Room" tags="menu" position="1100,200" size="100,100">A note you got from the Dining Room. It reads:
 
 &quot;The meal can only be served once(text-colour:orange)[ the guest] has been seated.&quot;
 
 [[Return to Notes. |Notes]]
-(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="36" name="Pick up the ball from the floor." tags="" position="250,275" size="100,100"></tw-passagedata><tw-passagedata pid="37" name="Look underneath the cabinet." tags="" position="225,400" size="100,100"></tw-passagedata><tw-passagedata pid="38" name="Look in the wine fridge." tags="" position="-25,400" size="100,100"></tw-passagedata><tw-passagedata pid="39" name="Look at the loose panel in the ceiling." tags="" position="100,525" size="100,100"></tw-passagedata><tw-passagedata pid="40" name="Look in the pockets of the billiard table." tags="" position="225,525" size="100,100"></tw-passagedata></tw-storydata>
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="40" name="Note from the Billiard Room" tags="menu" position="1475,200" size="100,100">A note you found in the Billiard Room. It reads:
+
+&quot;It&#39;s not a true game until all the (text-colour:orange)[pieces] are in place.&quot;
+
+[[Return to Notes. |Notes]]
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="41" name=" Mansion Entrance" tags="main-room" position="700,625" size="100,100">[This is the initial mansion entrance dialogue.]&lt;enter|
+
+[[Look at the photo on the wall.]]
+
+[[[Go to the $diningName. | Dining Room]]]&lt;dr|
+[[[Go to the $billiardName. | Billiard Room (Locked)]]]&lt;br|
+[[Go to the $kitchenName. | Kitchen]]
+[[[Go to the $guestName. | Guest Room (Locked)]]]&lt;gr|
+(text-colour:transparent)[[[Look at the vase in the corner of the room. | Password 1]]]
+[[[Inspect the hole in the wall. | Crank (Locked)]]]&lt;cr|
+
+{(event: when visits &gt;= 2)+(replace: ?enter)[Hey. You&#39;ve explored the entrance once. Congrats.]
+
+(event: when $dollSolve is &quot;true&quot;)+(replace: ?dr)[[[Go to the $diningName. | Dining Room Solved]]]
+
+(event: when $billiardUnlocked is &quot;true&quot;)+(replace: ?br)[[[Go to the $billiardName. | Billiard Room]]]
+(event: when $guestUnlocked is &quot;true&quot;)+(replace: ?gr)[[[Go to the $guestName. | Guest Room]]]
+
+(event: when $fullCrank is &quot;true&quot; and $secondExplored is &quot;true&quot;)+(replace: ?gr)[[[Go up the stairs. | Second Floor]]]
+
+(set: $headerValue to &quot;Mansion Entrance&quot;)
+(replace: ?headerName)[$headerValue]
+}</tw-passagedata><tw-passagedata pid="42" name=" Dining Room Solved" tags="main-room" position="400,1025" size="100,100">A dimly-lit dining room. Someone took great care into setting the table.
+
+There is a doll sitting at the head of the table. You swear its head turns towards you when you&#39;re not looking.
+
+A pot of (text-colour:#862e9c)[poisonous soup] sits on the table, and every now and then you get a faint whiff of the smell. It smells like death.
+
+(if: $goldCue is &quot;true&quot; or $silverCue is &quot;true&quot; or $bronzeCue is &quot;true&quot;)[[[Use the poison on the pool cue. | Poison Cue]]]
+[[Go to the Kitchen. | Kitchen]]
+[[Go to the Mansion Entrance. | Mansion Entrance]]
+
+{(set: $headerValue to &quot;Dining Room&quot;)
+(replace: ?headerName)[$headerValue]
+}</tw-passagedata><tw-passagedata pid="43" name=" Poison Cue" tags="" position="400,1150" size="100,100">You remember what happened to the puppet and decide to ladle some of the soup onto the cue as well. You may as well try it anyway.
+
+(if: $goldCue is &quot;true&quot;)[[[Pour it on the Golden Cue. | Gold Poison]] (set: $poisonGold to &quot;true&quot;)]
+(if: $silverCue is &quot;true&quot;)[[[Pour it on the Silver Cue. | Silver Poison]](set: $poisonSilver to &quot;true&quot;)]
+(if: $bronzeCue is &quot;true&quot;)[[[Pour it on the Bronze Cue. | Bronze Poison]] (set: $poisonBronze to &quot;true&quot;)]
+
+[[Go back. | Dining Room Solved]]
+&lt;!--[[Inspect the case.]]--&gt;</tw-passagedata><tw-passagedata pid="44" name=" Gold Poison" tags="" position="275,1275" size="100,100">You take the ladle and pour it over the gold ring. It does nothing. You toss the pool cue to the side. (set: $goldCue to &quot;false&quot;)(set: $goldFail to &quot;true&quot;)
+
+{
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Golden Cue&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Golden Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+}
+
+[[Go back. | Dining Room Solved]]</tw-passagedata><tw-passagedata pid="45" name=" Silver Poison" tags="" position="400,1275" size="100,100">You take the ladle and pour it over the silver ring. The cue splits in half, revealing a wooden key in the middle. You decide to pick it up. 
+
+{
+(set: $silverCue to &quot;false&quot;)
+(set: $goldCue to &quot;false&quot;)
+(set: $bronzeCue to &quot;false&quot;)
+(set: $cueSolve to &quot;true&quot;)
+(set: $guestKey to &quot;true&quot;)
+
+&lt;!--Guest Key Inv--&gt;
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Guest Room Key&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Guest Room Key&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Guest Room Key&quot;)]
+
+&lt;!--Silver Key Inv--&gt;
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Silver Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Silver Cue&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Silver Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Silver Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Silver Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+
+&lt;!--Gold Key Inv--&gt;
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Golden Cue&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Golden Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+
+&lt;!--Bronze Key Inv--&gt;
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Bronze Cue&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Bronze Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+}
+
+[[Go back. | Dining Room Solved]]</tw-passagedata><tw-passagedata pid="46" name=" Bronze Poison" tags="" position="525,1275" size="100,100">You take the ladle and pour it over the bronze ring. Now all you have is a wet pool cue. You toss the pool cue to the side. (set: $bronzeCue to &quot;false&quot;)(set: $bronzeFail to &quot;true&quot;)
+
+{
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Bronze Cue&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Bronze Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Bronze Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+}</tw-passagedata><tw-passagedata pid="47" name=" Password 2" tags="" position="1250,1425" size="100,100">Perhaps feeling a bit bored, you decide to try your shot at the billiards. You line up your cue to the [cue ball]&lt;shoot|...
+
+(click: ?shoot)[... and it splits open. There&#39;s a piece of paper inside with the number &quot;0500&quot; on it. Surely you will remember this. (set: $password2 to &quot;true&quot;)]
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="48" name="Note from a cue ball" tags="menu" position="1100,325" size="100,100">A piece of paper that has &quot;0500&quot; written on it.
+
+[[Return to Notes. |Notes]]
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="49" name="Inspect the billiard table." tags="" position="1125,1425" size="100,100">There are five colored pool balls on the table. Upon closer inspection, you can see that they each have a letter on them, rather than a number. (set: $tableNote to &quot;true&quot;)
+
+R A S T S
+
+[[Go back. | Billiard Room]]</tw-passagedata><tw-passagedata pid="50" name="Note about the pool balls" tags="menu" position="1225,325" size="100,100">A note about the pool balls in the Billiard Room. They all have letters on them.
+
+R A S T S
+
+[[Return to Notes. |Notes]]
+(link-goto: &quot;Exit&quot;, $lastPassage)</tw-passagedata><tw-passagedata pid="51" name=" Typewriter" tags="" position="1150,625" size="100,100">For reasons unbeknownst to you, there&#39;s a typewriter on the desk. A lot of the keys are missing.
+
+You get a closer look at it, and see... a [note]&lt;gn|. Surprisingly.
+
+(click: ?gn)[&quot;I&#39;m trying to remember that word I was thinking of before... I remember coming up with it while I was playing (text-colour:orange)[billiards].&quot;]
+
+[There&#39;s a fresh piece of paper loaded into the plate. It&#39;s like it&#39;s just waiting to be typed on.
+
+{
+(cycling-link: bind _first, &quot;T&quot;, &quot;G&quot;, &quot;S&quot;, &quot;M&quot;, &quot;W&quot;)
+-
+(cycling-link: bind _second, &quot;R&quot;, &quot;A&quot;, &quot;T&quot;, &quot;G&quot;, &quot;P&quot;)
+-
+(cycling-link: bind _third, &quot;S&quot;, &quot;A&quot;, &quot;M&quot;, &quot;Q&quot;, &quot;L&quot;)
+-
+(cycling-link: bind _fourth, &quot;W&quot;, &quot;M&quot;, &quot;R&quot;, &quot;L&quot;, &quot;Y&quot;)
+-
+(cycling-link: bind _fifth, &quot;Y&quot;, &quot;P&quot;, &quot;T&quot;, &quot;S&quot;, &quot;G&quot;)
+}
+
+{(link: &quot;Confirm the combination.&quot;) 
+[(set: _combo to _first + _second + _third + _fourth + _fifth)
+(if: _combo is &quot;STARS&quot; and $crank1 is not &quot;true&quot;)[You hear something fall [[onto the bed | Crank 1]] behind you. ]
+(else:)[Without you touching it, the typewriter rolls the paper to the next line. You get the feeling you did something wrong.
+
+&lt;p&gt;[[Try again. | Typewriter]]]]}]&lt;type|
+
+{(event: when $typeSolve is &quot;true&quot;)+(replace: ?type)[You don&#39;t think you need to use the typewriter for anything anymore. However, you briefly ponder recording your experiences thus far in it.]}
+
+[[Go back. | Guest Room]]</tw-passagedata><tw-passagedata pid="52" name="Look at the bed." tags="" position="1275,750" size="100,100">A bed that smells like dust and mothballs. (if: $typeSolve is &quot;true&quot; and $crank1 is not &quot;true&quot;)[There&#39;s a [[wooden handle | Crank 1]] sitting on it.]
+
+[[Go back. | Guest Room]]</tw-passagedata><tw-passagedata pid="53" name="Look at the dresser." tags="" position="1150,750" size="100,100">It&#39;s an ordinary dresser. While most things you look at in the mansion have something useful to them, this is just a dresser. Not only that, but it&#39;s completely locked shut. It&#39;s a completely useless dresser.
+
+[[Go back. | Guest Room]]</tw-passagedata><tw-passagedata pid="54" name="Crank Arrange" tags="menu" position="975,325" size="100,100">It occurs to you that the metal wheel and the handle might go together. You put them together, and it makes a crank. Weird. (set: $fullCrank to &quot;true&quot;)
+
+{
+(set: $invSpace to it - 1)
+
+(set: $inventorySlot to
+(dm: &quot;Slot 1:&quot;, &quot;Weird Crank&quot;,
+&quot;Slot 2:&quot;, &quot;Empty&quot;,
+&quot;Slot 3:&quot;, &quot;Empty&quot;))
+
+}
+
+[[Go to the Mansion Entrance. | Mansion Entrance]]</tw-passagedata><tw-passagedata pid="55" name=" Crank (Locked)" tags="" position="750,1550" size="100,100">[]&lt;crankLock|
+{
+(event: when $fullCrank is not &quot;true&quot;)[(replace: ?crankLock)[Something could fit in this hole, but you don&#39;t know what yet...&lt;p&gt;
+
+[[Go back. | Mansion Entrance]]&lt;/p&gt;]]
+
+(event: when $fullCrank is &quot;true&quot;)[(replace: ?crankLock)[You put the Weird Crank in the hole and turn it. It reveals a set of stairs.
+
+&lt;p&gt;... It occurs to you that you probably didn&#39;t need both parts to make this work, but whatever.
+
+(set: $invSpace to it - 1)
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Weird Crank&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Weird Crank&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Weird Crank&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Weird Crank&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Weird Crank&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
+
+&lt;p&gt;[[Go in. | Second Floor]]
+&lt;p&gt;[[Go back. | Mansion Entrance]]]]
+}</tw-passagedata><tw-passagedata pid="56" name=" Second Floor" tags="main-room" position="925,1550" size="100,100">This is the Second Floor. You&#39;ve reached the end for now.
+
+{(set: $headerValue to &quot;Second Floor&quot;)
+(replace: ?headerName)[$headerValue]
+(set: $secondExplored to &quot;true&quot;)}</tw-passagedata><tw-passagedata pid="57" name=" Crank 1" tags="" position="1275,625" size="100,100">[A large wooden handle lays on the bed. It looks like something else should be attached to it.(set: $typeSolve to &quot;true&quot;)
+
+{
+(if: $crank1 is not &quot;true&quot;)[(if: $invSpace is not 3)[(link: &quot;Take the handle.&quot;)[(set: $crank1 to &quot;true&quot;)(set: $invSpace to it + 1)
+
+(if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Handle&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Handle&quot;)]
+(else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Empty&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Empty&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Handle&quot;)]]]
+
+(else-if: $invSpace is 3)[(link: &quot;Take the handle.&quot;)[$inventoryMessage]]]
+
+
+}
+]&lt;cranktxt|
+
+{(event: when $crank1 is &quot;true&quot; or $crank1 is &quot;false&quot;)+(replace: ?cranktxt)[The bed is empty. You don&#39;t need to look here anymore.]
+(event: when $crank1 is &quot;true&quot; and $crank2 is &quot;true&quot;)[(go-to: &quot;Crank Arrange&quot;)]
+}
+
+[[Go back. | Guest Room]]
+&lt;!--[[Poison Cabinet]]--&gt;</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
