@@ -86,15 +86,17 @@ In addition to this, there is a large spice cabinet in the corner.
 
 [[Go back. | Mansion Entrance]]&lt;/p&gt;]]
 
-(event: when $guestKey is &quot;true&quot;)[(replace: ?guestLock)[You unlock the Guest Room with the key.]
+(event: when $guestKey is &quot;true&quot;)[(replace: ?guestLock)[You unlock the Guest Room with the key.
+
+&lt;p&gt;[[Go in. | Guest Room]]
+&lt;p&gt;[[Go back. | Mansion Entrance]]]
 
 (set: $invSpace to it - 1)
 (if: $inventorySlot&#39;s &quot;Slot 1:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 1:&quot; to &quot;Empty&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 1:&quot; is not &quot;Guest Room Key&quot; and $inventorySlot&#39;s &quot;Slot 2:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 2:&quot; to &quot;Empty&quot;)]
 (else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Guest Room Key&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Guest Room Key&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)
 
-&lt;p&gt;[[Go in. | Guest Room]]
-&lt;p&gt;[[Go back. | Mansion Entrance]]]]
+]]
 }
 
 {
@@ -646,7 +648,7 @@ A pot of (text-colour:#862e9c)[poisonous soup] sits on the table, and every now 
 (else-if: $inventorySlot&#39;s &quot;Slot 2:&quot; is not &quot;Golden Cue&quot; and $inventorySlot&#39;s &quot;Slot 3:&quot; is &quot;Golden Cue&quot;)[(set: $inventorySlot&#39;s &quot;Slot 3:&quot; to &quot;Empty&quot;)]
 }
 
-[[Go back. | Dining Room Solved]]</tw-passagedata><tw-passagedata pid="45" name=" Silver Poison" tags="" position="400,1275" size="100,100">You take the ladle and pour it over the silver ring. The cue splits in half, revealing a wooden key in the middle. You decide to pick it up. 
+[[Go back. | Dining Room Solved]]</tw-passagedata><tw-passagedata pid="45" name=" Silver Poison" tags="" position="400,1300" size="100,100">You take the ladle and pour it over the silver ring. The cue splits in half, revealing a wooden key in the middle. You decide to pick it up. 
 
 {
 (set: $silverCue to &quot;false&quot;)
